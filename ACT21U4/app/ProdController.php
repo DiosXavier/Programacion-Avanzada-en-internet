@@ -27,7 +27,7 @@ if(isset($_POST['action'])){
     
                 $p = new ProdController();
     
-                $p->create($name, $slug, $description, $features, $brand_id,$imagen);   
+                $p->create($name, $slug, $description, $features, $brand_id);   
                 break;
         
     }
@@ -101,6 +101,8 @@ class ProdController{
     
     }
 
+
+
             public function update($name, $slug, $description, $features, $brand_id){
 
                 $token = $_SESSION['token'];    
@@ -125,6 +127,11 @@ class ProdController{
             header('Location: ../productos/index.php?success=true');
             
             }
+
+
+
+
+            
             public static function getPslug($slug){
                 
                 $curl = curl_init();

@@ -45,7 +45,7 @@
                     <div class="card-body">
                     <h5 class="card-title"><?php echo $producto->name; ?></h5>
                     <p class="card-text"><?php echo $producto->description; ?></p>
-                    <a href="#" onclick="edit(this)" class="btn btn-warning col-6" id="editar"><?php  ?>Editar</a>
+                    <a data-product='<?php json_encode($producto) ?>' href="#" data-bs-toggle="modal"  onclick="edit(this)" class="btn btn-warning col-6" id="editar">Editar</a>
                     <a href="#" onclick="remove(this)" class="btn btn-danger col-6">Eliminar</a>
                     <a href=<?php echo "detalles.php?slug=".$producto->slug.""?> class='btn btn-primary col-6' >Ver detalles</a>
                     </div>
@@ -68,8 +68,18 @@
                 })
             }
             function edit(target){
-                document.getElmentById("oculto").value = "update";
-                let product = JSON.parse(target.getAtribute)
+                Swal.fire({
+                title: 'Editar...',
+                text: 'Usted selecciono editar.'
+                })
+                document.getElementById("oculto").value = "update";
+                let producto = JSON.parse(target.getAttribute('data-product'));
+                console.log(product.name);
+
+
+                //document.getElementById("name").value=;
+                
+
 
             }
             function agregar(target){
@@ -98,24 +108,24 @@
             <div class="modal-body">
             <div class="input-group">
                 <span class="input-group-text">Nombre del producto</span>
-                <textarea name='name' class="form-control" aria-label="With textarea"></textarea>
+                <textarea id="name" name='name' class="form-control" aria-label="With textarea"></textarea>
             </div>
             <div class="input-group">
                 <span class="input-group-text">Slug del producto</span>
                 <textarea class="form-control" name="slug" aria-label="With textarea"></textarea>
             </div><div class="input-group">
                 <span class="input-group-text">Caracteristicas del producto</span>
-                <textarea class="form-control" name="features" aria-label="With textarea"></textarea>
+                <textarea id="features" class="form-control" name="features" aria-label="With textarea"></textarea>
             </div>
 
             <div class="input-group">
                 <span class="input-group-text">Descripcion del producto</span>
-                <textarea name='description' class="form-control" aria-label="With textarea"></textarea>
+                <textarea id="description" name='description' class="form-control" aria-label="With textarea"></textarea>
             </div>
 
             <div class="input-group">
          <span class="input-group-text">Marca</span>
-         <select class="form-select" aria-label="Default select example" name = "brand_id">
+         <select class="form-select" aria-label="Default select example" name = "brand_id" id="brand_id">
         <?php foreach($brands as $brand): ?>
         <option value=<?php echo $brand->id?>><?php echo $brand->name?></option>
         <?php endforeach;?>
